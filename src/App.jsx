@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './routes/Home.component';
 import AboutPage from './routes/About.component';
 import Layout from './routes/layout.component';
-import Pokemon from './routes/Pokemon.component';
+import Product from './routes/Product.component';
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />}></Route>
             <Route path="/about" element={<AboutPage />} />
-            <Route path="/pokemons/:id" element={<Pokemon />} />
+            <Route path="/products/:id" element={<Product />} />
           </Route>
         </Routes>
       </Router>

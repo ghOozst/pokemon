@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Loader from '../components/loader/loader.component';
-import PokemonCard from '../components/PokemonCard.component';
+import ProductCard from '../components/ProductCard.component';
 
 const Home = () => {
-  const url = `https://pokeapi.co/api/v2/pokemon`;
-  const [pokemons, setPokemons] = useState({
+  const url = `https://5e9623dc5b19f10016b5e31f.mockapi.io/api/v1/products?page=1&limit=10`;
+  const [products, setProducts] = useState({
     loading: false,
     data: null,
     error: false,
@@ -14,7 +14,7 @@ const Home = () => {
   let content = null;
 
   useEffect(() => {
-    setPokemons({
+    setProducts({
       loading: true,
       data: null,
       error: false,
@@ -23,24 +23,25 @@ const Home = () => {
     axios
       .get(url)
       .then((res) =>
-        setPokemons({ loading: false, data: res.data.results, error: false })
+        setProducts({ loading: false, data: res.data, error: false })
       )
-      .catch((res) => setPokemons({ loading: false, data: null, error: true }));
+      .catch((res) => setProducts({ loading: false, data: null, error: true }));
   }, [url]);
 
-  if (pokemons.error)
+  if (products.error)
     content = (
       <div>
         <div className="bg-red-300 p-3">Product Not Found</div>
       </div>
     );
 
-  if (pokemons.loading) content = <Loader></Loader>;
+  if (products.loading) content = <Loader></Loader>;
 
-  if (pokemons.data)
-    content = pokemons.data.map((pokemon, id) => (
-      <PokemonCard key={id} pokemon={pokemon} id={id} />
+  if (products.data)
+    content = products.data.map((product) => (
+      <ProductCard key={product.id} product={product} />
     ));
+
   return (
     <div>
       <h1 className="font-bold text-2xl mb-3"> All Products</h1>
